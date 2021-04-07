@@ -43,4 +43,21 @@ class League
       player.salary
     end.last.name
   end
+
+  def players_by_salary_range
+    all_players = @teams.map do |team|
+      team.players
+    end.flatten
+    range_top = all_players.max_by do |player|
+      player.salary
+    end.salary/1000000
+    salary_hash = Hash.new {|hash, key| hash[key] = []}
+    (range_top + 1).times do |i|
+      salary_hash["Over #{i}M"]
+    end
+    all_players.map do |player|
+      salary_hash["Over #{player.salary/1000000}M"] << player.name
+    end
+    salary_hash
+  end
 end
