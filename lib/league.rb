@@ -32,4 +32,15 @@ class League
     end
     player_team
   end
+
+  def most_expensive_player
+    captain_by_team = @teams.map do |team|
+      team.players.sort_by do |player|
+        player.salary
+      end.last
+    end
+    captain_by_team.sort_by do |player|
+      player.salary
+    end.last.name
+  end
 end

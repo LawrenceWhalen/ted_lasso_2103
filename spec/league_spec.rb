@@ -89,11 +89,31 @@ RSpec.describe "League" do
       rainbow_cup.add_team(the_beats)
       rainbow_cup.add_team(the_bestfriends)
         expected_hash ={
-                          the_beats => ["Dwight Shrute", "Rocky Malone", "Richard Doe"],
-                          the_bestfriends => ["Shifty Doe", "Beagle Dog", "Bob McBobby"]
-                          }
+                        the_beats => ["Dwight Shrute", "Rocky Malone", "Richard Doe"],
+                        the_bestfriends => ["Shifty Doe", "Beagle Dog", "Bob McBobby"]
+                        }
 
       expect(rainbow_cup.players_by_team).to eq(expected_hash)
+    end
+  end
+  describe "#most_expensive_player" do
+    it "returns the player with the hightest salary from all players" do
+      rainbow_cup = League.new("Rainbow Cup")
+
+      dwight = Player.new({name: "Dwight Shrute", position: "Midfield", salary: 1_000_000})
+      rocky = Player.new({name: "Rocky Malone", position: "Pitcher", salary: 1_502_000})
+      richard = Player.new({name: "Richard Doe", position: "Accountant", salary: 43_000})
+      the_beats = Team.new("The Beats", "Tim Winner", [dwight, rocky, richard])
+
+      shifty = Player.new({name: "Shifty Doe", position: "Dark Alley", salary: 330_000})
+      beagle = Player.new({name: "Beagle Dog", position: "Good Boy", salary: 3_000_000})
+      bob = Player.new({name: "Bob McBobby", position: "The Bobster", salary: 1_111_111})
+      the_bestfriends = Team.new("The the_bestfriends", "Tim Winner", [shifty, beagle, bob])
+
+      rainbow_cup.add_team(the_beats)
+      rainbow_cup.add_team(the_bestfriends)
+
+      expect(rainbow_cup.most_expensive_player).to eq("Beagle Dog")
     end
   end
 end
